@@ -21,25 +21,46 @@ body{margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, Segoe 
 .controls{display:flex;flex-wrap:wrap;gap:16px;align-items:end;margin:14px 0 8px}
 .dates{display:flex;gap:12px;flex-wrap:wrap}
 label{font-size:12px;color:#d6dcff;display:flex;flex-direction:column;gap:6px}
-input[type="date"]{padding:10px 12px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);border-radius:10px;color:#fff;min-width:180px}
+input[type="date"]{padding:10px 12px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);border-radius:14px;color:#fff;min-width:180px}
 input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1)}
 
-.btn{border:none;border-radius:12px;padding:12px 14px;cursor:pointer;font-weight:700;color:#fff;background:rgba(255,255,255,.12);backdrop-filter: blur(6px);}
+.btn{border:none;border-radius:14px;padding:12px 14px;cursor:pointer;font-weight:700;color:#fff;background:rgba(255,255,255,.12);backdrop-filter: blur(6px);}
 .btn:hover{background:rgba(255,255,255,.24)}
 .btn.primary{background:linear-gradient(180deg,#3a6bff,#2448c4)}
 .btn.icon{position:absolute;right:10px;top:10px;background:#e8edff;color:#111;padding:4px 10px;border-radius:10px;font-size:22px}
 
-.fact{margin:8px 0 12px;padding:10px 14px;border-left:4px solid var(--accent);background:rgba(10,12,22,.6);border-radius:8px;color:#fff}
+.fact{
+  margin:12px 0 18px;
+  padding:18px 22px;
+  font-size:1.08rem;
+  line-height:1.55;
+  border-left:6px solid var(--accent);
+  background:rgba(10,12,22,.78);
+  border-radius:12px;
+  color:#fff;
+  box-shadow:0 0 18px rgba(252,61,33,0.22);
+}
+
 .status{margin:8px 0;color:#d8dcff}
 
 .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin:16px 0 80px}
 .card{background:var(--card);border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.25);overflow:hidden;border:1px solid rgba(255,255,255,.15);color:#0f1224}
-.thumb-wrap{aspect-ratio:16/9;overflow:hidden}
+.thumb-wrap{aspect-ratio:16/9;overflow:hidden; position:relative;}
 .thumb{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
 .card:hover .thumb{transform:scale(1.06)}
 .card .meta{padding:12px 14px}
 .card h3{margin:0 0 6px 0;font-size:16px}
 .card .date{margin:0;color:#54607a;font-size:13px}
+
+/* Play overlay for video cards */
+.card.video .thumb-wrap::after{
+  content:'▶';
+  position:absolute; right:12px; bottom:10px;
+  font-size:22px; line-height:1;
+  color:#fff; background:rgba(0,0,0,.45);
+  border-radius:10px; padding:6px 10px;
+  backdrop-filter: blur(4px);
+}
 
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:grid;place-items:center;padding:16px}
 .modal[hidden]{display:none}
