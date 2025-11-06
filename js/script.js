@@ -14,6 +14,7 @@ const factEl  = document.getElementById('fact');
 document.getElementById('btnFetch').addEventListener('click', () => loadFrom('all2025', true));
 document.getElementById('btnLatest').addEventListener('click', () => loadFrom('latest'));
 document.getElementById('btnLast7').addEventListener('click', () => loadFrom('last7'));
+document.getElementById('btnVideos').addEventListener('click', () => loadFrom('all2025', false, { videosOnly: true }));
 
 const FACTS = [
   'A day on Venus is longer than its year.',
@@ -39,7 +40,7 @@ function toNum(d){ return Number(d.replaceAll('-','')); }
 function makeCard(item){
   const isVideo = item.media_type === 'video';
   const card = document.createElement('article');
-  card.className = 'card';
+  card.className = 'card' + (isVideo ? ' video' : '');
 
   const thumbWrap = document.createElement('div');
   thumbWrap.className = 'thumb-wrap';
@@ -103,7 +104,8 @@ modal.addEventListener('click', e => { if(e.target===modal) modal.hidden = true;
 document.getElementById('modalClose').addEventListener('click', () => modal.hidden = true);
 document.addEventListener('keydown', e => { if(e.key==='Escape' && !modal.hidden) modal.hidden = true; });
 
-async function loadFrom(which, withFilter=false){
+// UPDATED: accepts options (videosOnly)
+async function loadFrom(which, withFilter=false, opts = {}){
   randomFact();
   status.textContent = '🔄 Loading space photos…';
   gallery.innerHTML = '';
@@ -121,7 +123,10 @@ async function loadFrom(which, withFilter=false){
       }
     }
 
-    // newest first
+    if (opts.videosOnly) {
+      items = items.filter(x => x.media_type === 'video' && (x.url || x.thumbnail_url));
+    }
+
     items.sort((a,b) => toNum(b.date) - toNum(a.date));
 
     if(!items.length){ status.textContent = 'No results for that range.'; return; }
@@ -137,4 +142,3 @@ async function loadFrom(which, withFilter=false){
 
 // default view
 randomFact();
-// Tip: run scraper to generate data/*.json, then these buttons will work.
